@@ -49,9 +49,12 @@ const getEventData = async ({ page, request }) => {
     const eventHandle = await page.evaluateHandle(body => body.innerHTML, event);
     const date = await page.$('div.dates');
     const dateHandle = await page.evaluateHandle(body => body.innerHTML, date);
-    // const recurring = await page.$('div.dates');
-    // const recurringHandle = await
+    const recurring = await page.$('div.detail-c2.left div:nth-child(3)');
+    const recurringHandle = await page.evaluateHandle(body => body.innnerHTML, recurring);
     // Description 
+    const description = await page.$('div.description.clearfix');
+    const descHandle = await page.evaluateHandle(body => body.innnerHTML, description);
+    // #tab-details > div
     const location = await page.$('div.location');
     const locationHandle = await page.evaluateHandle(body => body.innerHTML, location);
     const address = await page.$('div.adrs');
@@ -63,9 +66,9 @@ const getEventData = async ({ page, request }) => {
     const phoneHandle = await page.evaluateHandle(body => body.innerHTML, phone);
     const time = await page.$('div.detail-c2.left div:nth-child(8)'); 
     const timeHandle = await page.evaluateHandle(body => body.innerHTML, time);    // Admission nth-child(9)  #eventDetails_4955259d-7598-4eca-9e80-3e81971a4d2f > div.detail-top > div.detail-c2.left > div:nth-child(9)
-    // Timestamp    
+    // Timestamp 
 
-    console.log(`URL: ${request.url}` + "\n", `Event name: ${eventHandle}`+ "\n", `Event date: ${dateHandle}`+ "\n", `Event location: ${locationHandle}`+ "\n", `Event address: ${addressHandle}`+ "\n", `Contact: ${contactHandle}`+ "\n", `Phone: ${phoneHandle}`+ "\n", `Time: ${timeHandle}`);
+    console.log(`URL: ${request.url}` + "\n", `Event name: ${eventHandle}`+ "\n", `Event description: ${descHandle}` + "\n", `Event date: ${dateHandle}`+ "\n", `Recurring: ${recurringHandle}` + "\n", `Event location: ${locationHandle}`+ "\n", `Event address: ${addressHandle}`+ "\n", `Contact: ${contactHandle}`+ "\n", `Phone: ${phoneHandle}`+ "\n", `Time: ${timeHandle}`);
     
     // Log data (util is a tool that nicely formats objects in the console)
     console.log(util.inspect(eventHandle, false));
